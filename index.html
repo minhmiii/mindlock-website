@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>MINDLOCK — Memory Challenge</title>
+<meta name="description" content="MindLock is a futuristic memory challenge game. Memorize, recall, level up."/>
+<style>
+:root{
+  --bg:#060913;
+  --panel:#0d1324;
+  --panel2:#101a31;
+  --cyan:#14e7f5;
+  --purple:#d33cff;
+  --text:#eaf4ff;
+  --muted:#8d9ab7;
+  --line:rgba(20,231,245,.18);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:
+    radial-gradient(900px 500px at 10% -10%, rgba(20,231,245,.10), transparent 60%),
+    radial-gradient(700px 500px at 90% 10%, rgba(211,60,255,.10), transparent 65%),
+    var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+a{text-decoration:none;color:inherit}
+.container{width:min(1120px,92vw);margin:auto}
+.nav{
+  position:sticky;top:0;z-index:20;
+  backdrop-filter:blur(14px);
+  background:rgba(6,9,19,.72);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.nav-inner{height:72px;display:flex;align-items:center;justify-content:space-between}
+.brand{letter-spacing:.24em;font-weight:800;font-size:1rem}
+.brand span{color:var(--cyan)}
+.nav-links{display:flex;gap:24px;color:var(--muted);font-size:.92rem}
+.nav-links a:hover{color:var(--text)}
+.hero{padding:92px 0 70px;position:relative;overflow:hidden}
+.grid{display:grid;grid-template-columns:1.08fr .92fr;gap:54px;align-items:center}
+.kicker{
+  display:inline-flex;gap:10px;align-items:center;
+  font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--cyan);
+}
+.kicker:before{content:"";width:26px;height:1px;background:var(--cyan)}
+h1{
+  font-size:clamp(3.2rem,8vw,6.6rem);
+  letter-spacing:.08em;line-height:.92;margin:18px 0 16px;
+}
+.gradient{background:linear-gradient(90deg,var(--cyan),#fff 42%,var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tagline{font-size:1.12rem;color:#b9c5dd;max-width:620px}
+.cta{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:48px;padding:0 22px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.11);font-weight:700;font-size:.9rem;
+}
+.btn-primary{background:var(--cyan);color:#041017;box-shadow:0 0 28px rgba(20,231,245,.18)}
+.btn-ghost{background:rgba(255,255,255,.03)}
+.phone-wrap{display:flex;justify-content:center}
+.phone{
+  width:min(300px,78vw);padding:12px;border-radius:38px;
+  background:linear-gradient(150deg,#161d2e,#05070d);
+  box-shadow:0 35px 80px rgba(0,0,0,.46), 0 0 55px rgba(20,231,245,.08);
+  border:1px solid rgba(255,255,255,.08);
+}
+.phone img{display:block;width:100%;border-radius:28px}
+.section{padding:84px 0}
+.section-head{max-width:640px;margin-bottom:34px}
+.eyebrow{color:var(--purple);text-transform:uppercase;letter-spacing:.16em;font-size:.78rem;font-weight:800}
+h2{font-size:clamp(2rem,4vw,3.2rem);margin:8px 0 10px;line-height:1.05}
+.muted{color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{
+  background:linear-gradient(180deg,rgba(16,26,49,.86),rgba(10,14,27,.86));
+  border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:24px;
+  box-shadow:0 18px 40px rgba(0,0,0,.20);
+}
+.num{color:var(--cyan);font-size:.78rem;letter-spacing:.16em}
+.card h3{margin:9px 0 6px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.feature-list{display:grid;gap:12px}
+.feature{
+  display:flex;gap:14px;align-items:flex-start;padding:16px 18px;
+  border:1px solid rgba(255,255,255,.07);border-radius:16px;background:rgba(255,255,255,.025)
+}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--cyan);margin-top:9px;box-shadow:0 0 16px rgba(20,231,245,.55)}
+.mode{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-top:18px}
+.pill{
+  padding:6px 10px;border-radius:999px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid rgba(211,60,255,.30);color:#f0b8ff;background:rgba(211,60,255,.08)
+}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.step{padding:22px;border:1px solid var(--line);border-radius:18px;background:rgba(11,17,31,.75)}
+.step strong{font-size:2rem;color:var(--cyan)}
+.trailer{
+  display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px;
+  padding:30px;border-radius:24px;border:1px solid rgba(20,231,245,.18);
+  background:
+    radial-gradient(500px 150px at 20% 10%,rgba(20,231,245,.08),transparent 70%),
+    radial-gradient(450px 150px at 85% 90%,rgba(211,60,255,.08),transparent 70%),
+    rgba(13,19,36,.8);
+}
+.footer{padding:44px 0 60px;color:var(--muted);font-size:.9rem}
+@media (max-width: 820px){
+  .grid,.duo{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+  .hero{padding-top:62px}
+}
+@media (max-width: 520px){.steps{grid-template-columns:1fr}.trailer{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="container nav-inner">
+    <div class="brand"><span>MIND</span>LOCK</div>
+    <nav class="nav-links">
+      <a href="#how">How to Play</a>
+      <a href="#modes">Modes</a>
+      <a href="#features">Features</a>
+      <a href="#trailer">Trailer</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="container grid">
+    <div>
+      <div class="kicker">Memory challenge game</div>
+      <h1><span class="gradient">MINDLOCK</span></h1>
+      <p class="tagline">Train your memory. Beat your limits. Memorize a sequence, recall it under pressure, and level up as the challenge grows.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#how">HOW TO PLAY</a>
+        <a class="btn btn-ghost" href="#trailer">WATCH TRAILER</a>
+      </div>
+    </div>
+    <div class="phone-wrap">
+      <div class="phone"><img src="home_screen.png" alt="MindLock app home screen"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="how">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">How it works</div>
+      <h2>Simple rules. Increasing pressure.</h2>
+      <p class="muted">MindLock is built around a fast memorize → recall loop. Every correct answer raises the level and lengthens the sequence.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><strong>01</strong><h3>MEMORIZE</h3><p class="muted">A number sequence appears for a limited time.</p></div>
+      <div class="step"><strong>02</strong><h3>RECALL</h3><p class="muted">The sequence disappears. Enter what you remember.</p></div>
+      <div class="step"><strong>03</strong><h3>ANSWER</h3><p class="muted">Submit your sequence and protect your remaining lives.</p></div>
+      <div class="step"><strong>04</strong><h3>LEVEL UP</h3><p class="muted">Correct answers increase the sequence length and score multiplier.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="modes">
+  <div class="container duo">
+    <div class="card">
+      <div class="num">MODE 01</div>
+      <h2>Normal</h2>
+      <p class="muted">Start with a 3-digit sequence and 3 lives. Progressively longer sequences test recall and concentration.</p>
+      <div class="mode"><span class="pill">3 lives</span><span class="muted">3 digits → longer</span></div>
+    </div>
+    <div class="card">
+      <div class="num">MODE 02</div>
+      <h2>Hard</h2>
+      <p class="muted">Start with a 5-digit sequence and 2 lives. The challenge begins immediately.</p>
+      <div class="mode"><span class="pill">2 lives</span><span class="muted">5 digits → longer</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Built for focus</div>
+      <h2>Everything you need for a quick memory session.</h2>
+    </div>
+    <div class="cards">
+      <div class="card"><div class="num">01</div><h3>Progressive Difficulty</h3><p class="muted">Every correct answer increases the sequence length.</p></div>
+      <div class="card"><div class="num">02</div><h3>Achievements</h3><p class="muted">Unlock milestones for first memory, perfect memory, hard mode, high score and mastery.</p></div>
+      <div class="card"><div class="num">03</div><h3>Daily Reminder</h3><p class="muted">Stay consistent with a lightweight training reminder.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="trailer">
+  <div class="container">
+    <div class="trailer">
+      <div>
+        <div class="eyebrow">MindLock trailer</div>
+        <h2>See the challenge in action.</h2>
+        <p class="muted">A short trailer for the MindLock app — memorize, recall, survive, level up.</p>
+      </div>
+      <a class="btn btn-primary" href="https://www.youtube.com/" target="_blank" rel="noopener">OPEN YOUTUBE</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="brand"><span>MIND</span>LOCK</div>
+    <div style="margin-top:8px">MEMORY CHALLENGE • TRAIN YOUR MEMORY. CHALLENGE YOUR LIMITS.</div>
+  </div>
+</footer>
+</body>
+</html>
